@@ -16,8 +16,12 @@ function calculate (){
   let salary = getSalary();
   if (salary > 0) {
     // return calculateTax(salary);
+    let deductions = calculateTax(salary);
+    document.getElementById("deductions").innerHTML = deductions;
+    document.getElementById("net").innerHTML = netIncome(salary, deductions);
   }
   // return 0;
+  document.getElementById("deductions").innerHTML = 0;
 }
 
 
