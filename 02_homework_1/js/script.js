@@ -10,14 +10,14 @@ function calculate (){
 
 // This fuctions does the logical calculation
 function calculateTax (salary) {
-  if (salary >= 42000 && sal < 85000){
-    tax = (salary - 42000) * 0.2;
+  if (salary >= 42705 && sal < 85405){
+    tax = (salary - 42705) * 0.2;
   }
-  else if (salary >= 85000 &&  salary < 103000) {
-    (salary - 85000) * 0.24 + (85000 - 42000) * 0.2;
+  else if (salary >= 85405 &&  salary < 103915) {
+    (salary - 85405) * 0.24 + (85405 - 42705) * 0.2;
   }
-  else if (salary >= 103000) {
-    (85000 - 42000) * 0.2 +(103000 - 85000) * 0.24 + (salary - 103000) * 0.2575;
+  else if (salary >= 103915) {
+    (85405 - 42705) * 0.2 +(103915 - 85405) * 0.24 + (salary - 103915) * 0.2575;
   }
 }
 
