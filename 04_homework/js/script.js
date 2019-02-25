@@ -76,14 +76,14 @@ function reverse(){
 // TEACHER ANSWER:
 function slice(){
   let secondArray = myArray.slice(1, myArray.length - 1);
-  showSecondArray(showSecondArray);
+  showSecondArray(secondArray);
 }
 
 
 function showSecondArray (input){
   document.querySelector('#mySubArray')
     .innerHTML =
-    '[' + input.join(',') + ']';
+    '[' + input.join() + ']';
 }
 
 // pass 1 and -1
@@ -121,6 +121,18 @@ showArray(); // that way everytime I refresh my array it will show it.
 //   showArray();
 //   }
 // }
+
+
+function skipMiddle(){
+  let middleIndex = Math.ceil(myArray.length/2) - 1;
+  let output;
+  if (myArray.length % 2 != 0){
+    output = (myArray.slice(0, middleIndex)).concat(myArray.slice(middleIndex + 1, myArray.length));
+  }else {
+    output = (myArray.slice(0, middleIndex).concat(myArray.slice(middleIndex + 2, myArray.length)));
+  }
+  showSecondArray(output);
+}
 
 
 function showFancyArray(){
