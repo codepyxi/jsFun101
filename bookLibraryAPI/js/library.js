@@ -63,4 +63,56 @@ function Library (books) {
       console.log(book);
     });
   }
+
+  // METHOD printTitlesOfBookArray prints the title of every book in the book array
+  this.printTitlesOfBookArray = function(bookArray){
+    bookArray.forEach((book) => {
+      console.log(book.title);
+    });
+  }
+
+  // METHOD Bubble Sort
+  // Source: https://www.w3resource.com/javascript-exercises/javascript-function-exercise-24.php
+  this.bubble = function(bookArray){
+    let swapp;
+    let n = bookArray.length-1;
+    let x = bookArray;
+    do {
+        swapp = false;
+        for (let i=0; i < n; i++)
+        {
+            if (x[i].price < x[i+1].price)
+            {
+              // Swapping
+               let temp = x[i];
+               x[i] = x[i+1];
+               x[i+1] = temp;
+               swapp = true;
+            }
+        }
+        n--;
+    } while (swapp);
+ return x;
+}
+
+  // METHOD sortByPrice sorts the books by price (from low to high)
+  this.sortByPrice = function (){
+    let noPriceBooks = [];
+    let booksWithPrice= [];
+
+    // Separate books with price and books without price
+    this.books.forEach((book)=> {
+      if (book.price !== undefined){
+        booksWithPrice.push(book);
+      }
+      else{
+        noPriceBooks.push(book);
+      }
+    });
+
+    // Bubble Sorting the books with price
+    console.log('Here is the sorted list of books by price (low to high): ');
+    this.printTitlesOfBookArray(this.bubble(booksWithPrice));
+    this.printTitlesOfBookArray(noPriceBooks);
+  }
 }

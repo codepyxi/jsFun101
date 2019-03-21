@@ -28,6 +28,7 @@ function reqListener () {
     showResult(myBooks);
     myLibrary = createLibrary(myBooks);
     myLibrary.alphaSort();
+    myLibrary.sortByPrice();
   }
 
   function showResult(collectionOfBooks) {
