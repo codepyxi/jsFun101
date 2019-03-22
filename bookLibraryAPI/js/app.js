@@ -6,6 +6,17 @@ let myBooks = [];
 let myLibrary;
 
 // *******
+function sortLibrary(){
+  myLibrary.alphaSort();
+  myLibrary.libraryToHTML();
+}
+
+function sortByPrice(){
+  // sortByPrice() is a method of my library class
+  myLibrary.sortPrices();
+}
+
+// *******
 // Step 1) call findBook
 function findBook() {
   let phrase = getPhrase();
@@ -27,32 +38,42 @@ function reqListener () {
     createBookObject(list.items);
     showResult(myBooks);
     myLibrary = createLibrary(myBooks);
-    myLibrary.alphaSort();
-    myLibrary.sortByPrice();
   }
 
   function showResult(collectionOfBooks) {
     let result = '';
     collectionOfBooks.forEach((book) => {
       result += `<div>
-      <span>${book.title}</span><br/>
-      <span>${book.description}</span><br/>
+      <span>Title: ${book.title}</span><br/>
+      <span>Description: ${book.description}</span><br/>
       <span><img src='${book.thumbnail}'/></span><br/>
-      <span>${book.amount}</span><br/>
-      <span>${book.authors}</span><br/><br/>
+      <span>Price: ${book.price}</span><br/>
+      <span>Author(s): ${book.authors}</span><br/><br/>
       </div>`
     });
     $("#books").html(result);
   }
 
+// METHOD checkStuff verifies if the attribute is undefined.
+// If the attribute is undefined then set it as 'N/A'
+function checkSaleability(book){
+  if(book.saleInfo.saleability === "NOT_FOR_SALE"){
+    return "N/A";
+  }
+  else{
+    return book.saleInfo.listPrice.amount;
+  }
+}
+
 // call creatBookObject
 function createBookObject(list){
   list.forEach(function(item) {
   // Book constructor is in book.js
-  let temp = new Book(item.volumeInfo.authors,
-                          item.volumeInfo.title,
-                          item.volumeInfo.pageCount,
-                          item.volumeInfo.averageRating);
+  let temp = new Book(item.volumeInfo.title,
+                          item.volumeInfo.description,
+                          item.volumeInfo.imageLinks.smallThumbnail,
+                          checkSaleability(item),
+                          item.volumeInfo.authors);
   myBooks.push(temp);
   });
   // createLibrary(myBooks);
@@ -65,9 +86,6 @@ function createLibrary(myBooks){
   return concordiaLibrary;
 }
 
-function sortedLibrary(library){
-  library.alphaSort();
-}
 
 function getPhrase() {
   let phrase = $('#phrase').val();

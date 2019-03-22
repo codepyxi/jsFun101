@@ -60,7 +60,7 @@ function Library (books) {
     });
     sortedBookArray.sort();
     sortedBookArray.forEach((book) => {
-      console.log(book);
+      book.bookToHTML();
     });
   }
 
@@ -96,13 +96,13 @@ function Library (books) {
 }
 
   // METHOD sortByPrice sorts the books by price (from low to high)
-  this.sortByPrice = function (){
+  this.sortPrices = function (){
     let noPriceBooks = [];
     let booksWithPrice= [];
 
     // Separate books with price and books without price
     this.books.forEach((book)=> {
-      if (book.price !== undefined){
+      if (book.price !== "N/A"){
         booksWithPrice.push(book);
       }
       else{
@@ -111,8 +111,17 @@ function Library (books) {
     });
 
     // Bubble Sorting the books with price
-    console.log('Here is the sorted list of books by price (low to high): ');
+    console.log('Here is the sorted list of books by price (high to low): ');
     this.printTitlesOfBookArray(this.bubble(booksWithPrice));
     this.printTitlesOfBookArray(noPriceBooks);
+  }
+
+  // METHOD libraryToHTML displays info on the HTML
+  function libraryToHTML() {
+    let result = '';
+    this.books.forEach((book) => {
+      result += book.bookToHTML();
+    });
+    return result;
   }
 }

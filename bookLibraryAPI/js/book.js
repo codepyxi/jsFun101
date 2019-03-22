@@ -24,16 +24,15 @@ function Book(title, description, thumbnail, price, authors){
     });
     return abbrev;
   }
-}
 
-let arrayOfBooks = [];
-
-function createBookArray (books){
-  for(i = 0; i < books.length; i++){
-    arrayOfBooks[i] = new Book (books[i].volumeInfo.title,
-                                books[i].volumeInfo.description,
-                                books[i].volumeInfo.imageLinks.smallThumbnail,
-                                books[i].saleInfo.listPrice.amount,
-                                books[i].volumeInfo.authors);
+  // METHOD bookToHTML displays book in the HTML
+  function bookToHTML () {
+    return `<div>
+    <span>Title: ${book.title}</span><br/>
+    <span>Description: ${book.description}</span><br/>
+    <span><img src='${book.thumbnail}'/></span><br/>
+    <span>Price: ${book.price}</span><br/>
+    <span>Author(s): ${book.authors}</span><br/><br/>
+    </div>`
   }
 }
