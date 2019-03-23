@@ -7,13 +7,17 @@ let myLibrary;
 
 // *******
 function sortLibrary(){
-  myLibrary.alphaSort();
+  // Sort myLibrary
+  // This will return an array that will be stored into myLibrary.books
+  myLibrary.books = myLibrary.alphaSort();
+  // Post the sorted library into the HTML
   myLibrary.libraryToHTML();
 }
 
 function sortByPrice(){
   // sortByPrice() is a method of my library class
-  myLibrary.sortPrices();
+  myLibrary.books = myLibrary.sortPrices();
+  myLibrary.libraryToHTML();
 }
 
 // *******
@@ -36,22 +40,8 @@ function sendRequest(urlStr) {
 function reqListener () {
   let list = JSON.parse(this.responseText);
     createBookObject(list.items);
-    showResult(myBooks);
     myLibrary = createLibrary(myBooks);
-  }
-
-  function showResult(collectionOfBooks) {
-    let result = '';
-    collectionOfBooks.forEach((book) => {
-      result += `<div>
-      <span>Title: ${book.title}</span><br/>
-      <span>Description: ${book.description}</span><br/>
-      <span><img src='${book.thumbnail}'/></span><br/>
-      <span>Price: ${book.price}</span><br/>
-      <span>Author(s): ${book.authors}</span><br/><br/>
-      </div>`
-    });
-    $("#books").html(result);
+    myLibrary.libraryToHTML();
   }
 
 // METHOD checkStuff verifies if the attribute is undefined.
@@ -59,6 +49,9 @@ function reqListener () {
 function checkSaleability(book){
   if(book.saleInfo.saleability === "NOT_FOR_SALE"){
     return "N/A";
+  }
+  else if(book.saleInfo.saleability === "FREE"){
+    return 0;
   }
   else{
     return book.saleInfo.listPrice.amount;
@@ -76,10 +69,9 @@ function createBookObject(list){
                           item.volumeInfo.authors);
   myBooks.push(temp);
   });
-  // createLibrary(myBooks);
 }
 
-// Call createLibrary
+// METHOD createLibrary creates a book library
 function createLibrary(myBooks){
   let concordiaLibrary = new Library(myBooks);
   console.log(concordiaLibrary.printTitles());

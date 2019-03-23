@@ -1,5 +1,6 @@
 //constructor for the library
 function Library (books) {
+  // Attribute : books is a collection of books
   this.books = books;
 
   // METHOD printTitles : iterates over the items in this object and print the “title” of the books
@@ -52,23 +53,31 @@ function Library (books) {
 
   // METHOD alphaSort sorts the books by titles
   this.alphaSort = function(){
+    let sortedBookTitles = [];
     let sortedBookArray = [];
     this.books.forEach((book) => {
       if(book.title !== undefined){
-        sortedBookArray.push(book.title);
+        sortedBookTitles.push(book.title);
       }
     });
-    sortedBookArray.sort();
-    sortedBookArray.forEach((book) => {
-      book.bookToHTML();
+    // Sort the book array and store it into the sortedBookArray
+    sortedBookTitles.sort();
+    // Sort the collection of books based on sortedBookTitles
+    // OUTER LOOP: Create a sorted array of books based on book titles
+    sortedBookTitles.forEach((title) => {
+      // INNER LOOP: Matching the book title with the corresponding book object
+      this.books.forEach((book) => {
+        if(title === book.title){
+          sortedBookArray.push(book);
+        }
+      });
     });
-  }
 
-  // METHOD printTitlesOfBookArray prints the title of every book in the book array
-  this.printTitlesOfBookArray = function(bookArray){
-    bookArray.forEach((book) => {
-      console.log(book.title);
-    });
+    // Return the sortedBookArray so it can be used in app.js
+    // sortedBookArray.forEach((book) => {
+    //   book.bookToHTML();
+    // });
+    return sortedBookArray;
   }
 
   // METHOD Bubble Sort
@@ -112,16 +121,23 @@ function Library (books) {
 
     // Bubble Sorting the books with price
     console.log('Here is the sorted list of books by price (high to low): ');
-    this.printTitlesOfBookArray(this.bubble(booksWithPrice));
-    this.printTitlesOfBookArray(noPriceBooks);
+    let booksByPriceArray = [];
+    let sortedByPrice = this.bubble(booksWithPrice);
+    sortedByPrice.forEach((book) => {
+      booksByPriceArray.push(book);
+    });
+    noPriceBooks.forEach((book) => {
+      booksByPriceArray.push(book);
+    });
+    return booksByPriceArray;
   }
 
   // METHOD libraryToHTML displays info on the HTML
-  function libraryToHTML() {
+  this.libraryToHTML = function () {
     let result = '';
     this.books.forEach((book) => {
       result += book.bookToHTML();
     });
-    return result;
+    $("#sorted").html(result);
   }
 }

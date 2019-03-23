@@ -25,14 +25,42 @@ function Book(title, description, thumbnail, price, authors){
     return abbrev;
   }
 
+  // METHOD checkIfDefined generic function that checks if the book attribute is defined
+  this.checkIfDefined = function(bookAttribute){
+    if(bookAttribute !== undefined){
+      return bookAttribute;
+    }
+    else{
+      return "undefined";
+    }
+  }
+
   // METHOD bookToHTML displays book in the HTML
-  function bookToHTML () {
+  this.bookToHTML = function () {
+    let title = this.checkIfDefined(this.title);
+    title = this.highlight(title);
+    let description = this.checkIfDefined(this.description);
+    description = this.highlight(description);
+    let thumbnail = this.checkIfDefined(this.thumbnail);
+    let price = this.checkIfDefined(this.price);
+    let authors = this.checkIfDefined(this.authors);
     return `<div>
-    <span>Title: ${book.title}</span><br/>
-    <span>Description: ${book.description}</span><br/>
-    <span><img src='${book.thumbnail}'/></span><br/>
-    <span>Price: ${book.price}</span><br/>
-    <span>Author(s): ${book.authors}</span><br/><br/>
+    <span>Title: ${title}</span><br/>
+    <span>Description: ${description}</span><br/>
+    <span><img src='${thumbnail}'/></span><br/>
+    <span>Price: ${price}</span><br/>
+    <span>Author(s): ${authors}</span><br/><br/>
     </div>`
   }
+
+  // METHOD highlight
+  // Source: https://stackoverflow.com/questions/8644428/how-to-highlight-text-using-javascript
+  this.highlight = function(text) {
+  var inputText = $('#phrase').val();
+  var index = text.toLowerCase().indexOf(inputText);
+  if (index >= 0) {
+   text = text.substring(0,index) + "<span class='highlight'>" + text.substring(index,index+inputText.length) + "</span>" + text.substring(index + inputText.length);
+   return text;
+  }
+}
 }
